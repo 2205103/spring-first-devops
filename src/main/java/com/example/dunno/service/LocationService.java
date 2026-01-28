@@ -1,5 +1,4 @@
-// LocationService.java
-package com.service;
+package com.example.dunno.service;
 
 import java.util.List;
 
