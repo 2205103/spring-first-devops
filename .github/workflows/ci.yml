@@ -47,4 +47,4 @@ jobs:
     # 7️⃣ Push Docker image (only on main)
     - name: Push Docker image
       if: github.ref == 'refs/heads/main'
-      run: docker push sarwarxsami/demo-spring-app:latest
+      run: docker push sarwarxsami/dunno:latest
