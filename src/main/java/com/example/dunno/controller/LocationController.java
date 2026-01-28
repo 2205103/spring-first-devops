@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,5 +27,10 @@ public class LocationController {
     @GetMapping("/create")
     public void addLocation() {
         locationService.createLocation("New Location");
+    }
+
+    @PostMapping("/create")
+    public Location createLocation(String name) {
+        return locationService.createLocation(name);
     }
 }
