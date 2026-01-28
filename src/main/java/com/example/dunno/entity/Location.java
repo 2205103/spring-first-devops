@@ -11,6 +11,13 @@ public class Location {
     
     private String name;
 
+    public Location() {
+    }
+
+    public Location(String name) {
+        this.name = name;
+    }
+
     // Getters and setters
     public Long getId() {
         return id;
