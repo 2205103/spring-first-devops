@@ -34,7 +34,7 @@ jobs:
 
     # 5️⃣ Build Docker image
     - name: Build Docker image
-      run: docker build -t sarwarxsami/demo-spring-app:latest .
+      run: docker build -t sarwarxsami/dunno:latest .
 
     # 6️⃣ Only push on main branch (not on PRs)
     - name: Log in to Docker Hub
