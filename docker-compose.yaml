@@ -8,6 +8,28 @@ services:
       POSTGRES_DB: testdb
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432" 
+      #5433 is for access from host machine
+      #5432 is for access from other containers (such as dunno which is containerized)
+    volumes:
+      # - postgres-data:/var/lib/postgresql/data
+      - ./init-db/init.sql:/docker-entrypoint-initdb.d/init.sql
+#Mounting init.sql into /docker-entrypoint-initdb.d/ inside the container
+
+#When you use the official PostgreSQL Docker image, it has a special directory: /docker-entrypoint-initdb.d/
+
+# What happens at startup:
+
+# PostgreSQL container starts
+
+# Checks if /var/lib/postgresql/data is empty (first run)
+
+# If empty → initializes database with POSTGRES_DB, POSTGRES_USER, etc.
+
+# Then executes all scripts in /docker-entrypoint-initdb.d/ in alphabetical order
+
+# Only runs these scripts once during first initialization
 
   dunno:
     build: .
@@ -20,3 +42,12 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/testdb
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
+
+
+# volumes:
+#   postgres-data:
+
+# 1. volumes: under a service → MOUNTING/ATTACHING
+# This defines what volumes to attach to a container and where to mount them inside the container.
+# 2. Top-level volumes: → STORAGE DEFINITION/CREATION
+# This defines the actual storage (named volumes) that Docker should create/manage.
