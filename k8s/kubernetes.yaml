@@ -1,0 +1,48 @@
+# what to do, not how to do it
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dunno-deployment
+  labels:
+    app: dunno
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dunno
+  template:
+    metadata:
+      labels:
+        app: dunno
+    spec:
+      containers:
+        - name: dunno
+          image: sarwarxsami/dunno:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 20
